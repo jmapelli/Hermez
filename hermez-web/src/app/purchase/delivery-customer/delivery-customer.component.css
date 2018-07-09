@@ -1,0 +1,29 @@
+.banner {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 150px;
+  position: relative;
+  top: -1rem;
+}
+
+.banner img {
+  bottom: 50%;
+  height: 100px;
+  left: 35%;
+  margin: auto;
+  top: 50%;
+  position: absolute;
+}
+
+.card {
+  cursor: pointer;
+}
+
+.card .image img {
+  width: 100%;
+}
+
+input {
+  text-align: right;
+}

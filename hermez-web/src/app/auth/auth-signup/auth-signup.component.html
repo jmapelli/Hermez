@@ -1,0 +1,16 @@
+<div id="content-signup">
+  <form class="form-signup" style="text-align: center" (submit)="signUp()">
+    <h1 class="h3 mb-3 font-weight-normal">Registrate</h1>
+    <input type="text" id="username" name="fullname" class="form-control"
+           placeholder="Nombre completo" required="" autofocus="" [(ngModel)]="request.fullname">
+    <input type="email" id="email" name="email" class="form-control"
+           placeholder="Correo electrónico" required="" [(ngModel)]="request.email">
+    <input type="password" id="password" name="password" class="form-control"
+           placeholder="Contraseña" required="" [(ngModel)]="request.password">
+    <div *ngIf="error" class="alert alert-danger" role="alert">
+      Error al crear el usuario.
+    </div>
+    <button class="btn btn-primary btn-block" type="submit">Registrarse</button>
+    <button class="btn btn-block btn-outline-primary" type="button" (click)="signIn()">Iniciar sesión</button>
+  </form>
+</div>

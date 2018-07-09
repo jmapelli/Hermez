@@ -1,0 +1,140 @@
+<app-header-customer></app-header-customer>
+<main role="main">
+  <div class="container" style="margin-bottom: 80px;">
+    <form name="form" (submit)="f.form.valid && submit(confModal)" #f="ngForm" novalidate>
+      <h5>Detalle del origen</h5>
+      <hr>
+
+      <div class="form-group">
+        <label for="nameOrigin">Nombre de la persona</label>
+        <input id="nameOrigin" name="nameOrigin" type="text" class="form-control" placeholder="Nombre de la persona"
+               [(ngModel)]="purchase.nameOrigin" style="text-align: left" #nameOrigin="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && nameOrigin.invalid }" required>
+        <div *ngIf="f.submitted && nameOrigin.invalid" class="invalid-feedback">
+          <div *ngIf="nameOrigin?.errors.required">Nombre de la persona es requerido</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="docOrigin">Doc. identidad</label>
+        <input id="docOrigin" name="docOrigin" type="text" class="form-control" placeholder="Doc. identidad"
+               [(ngModel)]="purchase.docOrigin" style="text-align: left" #docOrigin="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && docOrigin.invalid }" required>
+        <div *ngIf="f.submitted && docOrigin.invalid" class="invalid-feedback">
+          <div *ngIf="docOrigin?.errors.required">Doc. identidad es requerido</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="phoneOrigin">Teléfono</label>
+        <input id="phoneOrigin" name="phoneOrigin" type="text" class="form-control" placeholder="Teléfono"
+               [(ngModel)]="purchase.phoneOrigin" style="text-align: left" #phoneOrigin="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && phoneOrigin.invalid }" required>
+        <div *ngIf="f.submitted && phoneOrigin.invalid" class="invalid-feedback">
+          <div *ngIf="phoneOrigin?.errors.required">Teléfono es requerido</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="addressOrigin">Dirección de origen</label>
+        <input id="addressOrigin" name="addressOrigin" type="text" class="form-control"
+               placeholder="Dirección de origen"
+               [(ngModel)]="purchase.addressOrigin" style="text-align: left" #addressOrigin="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && addressOrigin.invalid }" required>
+        <div *ngIf="f.submitted && addressOrigin.invalid" class="invalid-feedback">
+          <div *ngIf="addressOrigin?.errors.required">Dirección es requerido</div>
+        </div>
+      </div>
+
+      <br>
+      <h5>Detalle del destino</h5>
+      <hr>
+
+      <div class="form-group">
+        <label for="nameArrival">Nombre de la persona</label>
+        <input id="nameArrival" name="nameArrival" type="text" class="form-control" placeholder="Nombre de la persona"
+               [(ngModel)]="purchase.nameArrival" style="text-align: left" #nameArrival="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && nameArrival.invalid }" required>
+        <div *ngIf="f.submitted && nameArrival.invalid" class="invalid-feedback">
+          <div *ngIf="nameArrival?.errors.required">Nombre de la persona es requerido</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="docArrival">Doc. identidad</label>
+        <input id="docArrival" name="docArrival" type="text" class="form-control" placeholder="Doc. identidad"
+               [(ngModel)]="purchase.docArrival" style="text-align: left" #docArrival="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && docArrival.invalid }" required>
+        <div *ngIf="f.submitted && docArrival.invalid" class="invalid-feedback">
+          <div *ngIf="docArrival?.errors.required">Doc. identidad es requerido</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="phoneArrival">Teléfono</label>
+        <input id="phoneArrival" name="phoneArrival" type="text" class="form-control" placeholder="Teléfono"
+               [(ngModel)]="purchase.phoneArrival" style="text-align: left" #phoneArrival="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && phoneArrival.invalid }" required>
+        <div *ngIf="f.submitted && phoneArrival.invalid" class="invalid-feedback">
+          <div *ngIf="phoneArrival?.errors.required">Teléfono es requerido</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="addressArrival">Dirección de destino</label>
+        <input id="addressArrival" name="addressArrival" type="text" class="form-control"
+               placeholder="Dirección de destino"
+               [(ngModel)]="purchase.addressArrival" style="text-align: left" #addressArrival="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && addressArrival.invalid }" required>
+        <div *ngIf="f.submitted && addressArrival.invalid" class="invalid-feedback">
+          <div *ngIf="addressArrival?.errors.required">Dirección es requerido</div>
+        </div>
+      </div>
+
+      <br>
+      <h5>Otros</h5>
+      <hr>
+
+      <div class="form-group">
+        <label for="comment">Comentarios</label>
+        <textarea id="comment" name="comment" class="form-control" rows="2" [(ngModel)]="purchase.comment"></textarea>
+      </div>
+
+      <br>
+      <h5>Detalle de pago</h5>
+      <hr>
+
+      <div class="form-group">
+        <label for="card">Tarjeta de crédito/débito</label>
+        <select id="card" name="card" [(ngModel)]="purchase.card" class="form-control">
+          <option [value]="item.number" *ngFor="let item of cards">{{item.number}}</option>
+        </select>
+      </div>
+
+      <br>
+      <h5>Total</h5>
+      <hr>
+
+      <div class="form-group row">
+        <label for="total" class="col-6 col-form-label">Total</label>
+        <div class="col-6 input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">s/.</div>
+          </div>
+          <input id="total" name="total" type="text" class="form-control"
+                 [ngModel]="purchase.total | number:'1.2'" readonly>
+        </div>
+      </div>
+      <hr>
+      <button type="submit" class="btn btn-primary col-12">Solicitar y pagar</button>
+    </form>
+  </div>
+</main>
+<app-footer-customer></app-footer-customer>
+
+<ng-template #confModal>
+  <div class="modal-body text-center">
+    <p>Pedido realizado!</p>
+    <button type="button" class="btn btn-primary" (click)="modal.hide()">Aceptar</button>
+  </div>
+</ng-template>

@@ -1,0 +1,22 @@
+<nav *ngIf="showNavBar" class="navbar navbar-expand-sm navbar-light mb-4 bg-light">
+  <button class="navbar-toggler" type="button" (click)="toggleNavBar()">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" [ngClass]="{ 'show': openNavBar }">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/admin/categories">Categorías</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/admin/stores">Tiendas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/admin/products">Productos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="logout()">Cerrar sesión</a>
+      </li>
+    </ul>
+  </div>
+</nav>

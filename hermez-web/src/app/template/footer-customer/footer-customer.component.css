@@ -1,0 +1,20 @@
+.navbar {
+  padding: 0;
+  background-color: #3b3b3b !important;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  /*height: 60px;*/
+  background-color: #f5f5f5;
+}
+
+.item-bar-menu:not(:last-child) {
+  border-right: 1px solid whitesmoke;
+}
+
+.item-bar-menu a {
+  color: #bfbfbf;
+}

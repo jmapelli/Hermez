@@ -1,0 +1,82 @@
+<app-header-customer></app-header-customer>
+<main role="main">
+  <div class="container" style="margin-bottom: 80px;">
+
+    <button type="button" class="btn btn-primary mb-2 float-right" (click)="openModal(frmModal, null)">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+      Agregar
+    </button>
+
+    <table class="table">
+      <tbody>
+      <tr *ngFor="let item of cards">
+        <td style="width: 90%">{{item.number}}</td>
+        <td style="width: 10%">
+          <button type="button" class="btn btn-danger btn-sm" (click)="openModal(confModal, item)">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+<app-footer-customer></app-footer-customer>
+
+<ng-template #frmModal>
+  <form name="form" (submit)="f.form.valid && submit()" #f="ngForm" novalidate>
+    <div class="modal-header">
+      <h5 class="modal-title">Nuevo tarjeta de pago</h5>
+      <button type="button" class="close" (click)="modal.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div class="form-group">
+        <label for="card">Número</label>
+        <input id="card" name="card" type="text" class="form-control" placeholder="Nombre de la tarjeta"
+               [(ngModel)]="card.number" #number="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && card.invalid }"
+               mask="0000-0000-0000-0000" required>
+        <div *ngIf="f.submitted && number.invalid" class="invalid-feedback">
+          <div *ngIf="number?.errors.required">Número es requerido</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="expiration">Mes / Año</label>
+        <input id="expiration" name="expiration" type="text" class="form-control" placeholder="Fecha de expiración"
+               [(ngModel)]="card.expiration" #expiration="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && expiration.invalid }"
+               mask="00/00" required>
+        <div *ngIf="f.submitted && expiration.invalid" class="invalid-feedback">
+          <div *ngIf="expiration?.errors.required">Fecha de expiración es requerido</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="verification">CVC</label>
+        <input id="verification" name="verification" type="text" class="form-control"
+               placeholder="Código de verificación"
+               [(ngModel)]="card.verification" #verification="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && verification.invalid }"
+               mask="000" required>
+        <div *ngIf="f.submitted && verification.invalid" class="invalid-feedback">
+          <div *ngIf="verification?.errors.required">CVC es requerido</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.hide()">Cerrar</button>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #confModal>
+  <div class="modal-body text-center">
+    <p>Esta seguro de eliminar la tarjeta {{ card.number }}</p>
+    <button type="button" class="btn btn-outline-danger mr-2" (click)="delete()">Eliminar</button>
+    <button type="button" class="btn btn-primary" (click)="modal.hide()">Cancelar</button>
+  </div>
+</ng-template>
+

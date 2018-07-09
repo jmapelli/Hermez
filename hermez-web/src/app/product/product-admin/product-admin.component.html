@@ -1,0 +1,109 @@
+<app-header-admin></app-header-admin>
+<main role="main" class="container mb-2">
+  <button type="button" class="btn btn-primary mb-2 float-right" (click)="openModal(frmModal, null)">
+    <i class="fa fa-plus" aria-hidden="true"></i>
+    Agregar
+  </button>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Precio</th>
+      <th scope="col">Opciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of products; let i = index">
+      <td style="width: 10%">{{ i+1 }}</td>
+      <td style="width: 40%">{{item.name}}</td>
+      <td style="width: 40%">s/.{{item.price | number:'1.2'}}</td>
+      <td style="width: 10%">
+        <button type="button" class="btn btn-primary btn-sm mr-1" (click)="openModal(frmModal, item)">
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="btn btn-danger btn-sm" (click)="openModal(confModal, item)">
+          <i class="fa fa-trash" aria-hidden="true"></i>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</main>
+
+<ng-template #frmModal>
+  <form name="form" (submit)="f.form.valid && submit()" #f="ngForm" novalidate>
+    <div class="modal-header">
+      <h5 class="modal-title">{{ product.id ? 'Editar Producto' : 'Nuevo Producto' }}</h5>
+      <button type="button" class="close" (click)="modal.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div class="form-group">
+        <label for="name">Nombre</label>
+        <input id="name" name="name" type="text" class="form-control" placeholder="Nombre del producto"
+               [(ngModel)]="product.name" #name="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required>
+        <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+          <div *ngIf="name?.errors.required">Nombre es requerido</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="description">Descripcion</label>
+        <input id="description" name="description" type="text" class="form-control"
+               placeholder="Descripcion del producto"
+               [(ngModel)]="product.description" #description="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && description.invalid }" required>
+        <div *ngIf="f.submitted && description.invalid" class="invalid-feedback">
+          <div *ngIf="description?.errors.required">Descripcion es requerida</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="precio">Precio</label>
+        <input id="precio" name="precio" type="text" class="form-control" placeholder="Precio del producto"
+               [(ngModel)]="product.price" #precio="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && precio.invalid }" required>
+        <div *ngIf="f.submitted && precio.invalid" class="invalid-feedback">
+          <div *ngIf="precio?.errors.required">Precio es requerido</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="image">Imagen</label>
+        <input id="image" name="image" type="text" class="form-control" placeholder="Imagen del producto"
+               [(ngModel)]="product.image" #image="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && image.invalid }" required>
+        <div *ngIf="f.submitted && image.invalid" class="invalid-feedback">
+          <div *ngIf="image?.errors.required">La imagen es requerida</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="store">Tienda</label>
+        <select id="store" name="store" type="text" class="form-control" placeholder="Tienda del producto"
+                [(ngModel)]="product.store.id" #store="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && store.invalid }"
+                required>
+          <option [value]="item.id" *ngFor="let item of stores">{{item.name}}</option>
+        </select>
+        <div *ngIf="f.submitted && store.invalid" class="invalid-feedback">
+          <div *ngIf="store?.errors.required">Tienda es requerida</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.hide()">Cerrar</button>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #confModal>
+  <div class="modal-body text-center">
+    <p>Esta seguro de eliminar el producto {{ product.name }}</p>
+    <button type="button" class="btn btn-outline-danger mr-2" (click)="delete()">Eliminar</button>
+    <button type="button" class="btn btn-primary" (click)="modal.hide()">Cancelar</button>
+  </div>
+</ng-template>

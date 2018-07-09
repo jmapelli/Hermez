@@ -1,0 +1,22 @@
+<app-header-customer></app-header-customer>
+<main role="main">
+  <div class="container" style="margin-bottom: 80px;">
+
+    <div class="card mb-2" *ngFor="let item of stores" routerLink="/products" [queryParams]="{store: item.id}">
+      <div class="card-body row">
+        <div class="image col-3">
+          <img src="{{item.logo}}">
+        </div>
+        <div class="content col-9">
+          <span class="font-weight-bold">{{item.name}}</span><br>
+          <small class="font-italic">{{item.description}}</small>
+          <br>
+          <!--<small class="font-weight-light">Costo envío: {{item.deliveryPrice}}</small>-->
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+<app-footer-customer></app-footer-customer>
+

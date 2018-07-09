@@ -1,0 +1,126 @@
+<app-header-admin></app-header-admin>
+<main role="main" class="container mb-2">
+  <button type="button" class="btn btn-primary mb-2 float-right" (click)="openModal(frmModal, null)">
+    <i class="fa fa-plus" aria-hidden="true"></i>
+    Agregar
+  </button>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Address</th>
+      <th scope="col">Opciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of stores; let i = index">
+      <td style="width: 10%">{{ i+1 }}</td>
+      <td style="width: 40%">{{item.name}}</td>
+      <td style="width: 40%">{{item.address}}</td>
+      <td style="width: 10%">
+        <button type="button" class="btn btn-primary btn-sm mr-1" (click)="openModal(frmModal, item)">
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="btn btn-danger btn-sm" (click)="openModal(confModal, item)">
+          <i class="fa fa-trash" aria-hidden="true"></i>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</main>
+
+<ng-template #frmModal>
+  <form name="form" (submit)="f.form.valid && submit()" #f="ngForm" novalidate>
+    <div class="modal-header">
+      <h5 class="modal-title">{{ store.id ? 'Editar Tienda' : 'Nueva Tienda' }}</h5>
+      <button type="button" class="close" (click)="modal.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div class="form-group">
+        <label for="name">Nombre</label>
+        <input id="name" name="name" type="text" class="form-control" placeholder="Nombre de la tienda"
+               [(ngModel)]="store.name"
+               #name="ngModel" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required>
+        <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+          <div *ngIf="name?.errors.required">Nombre es requerido</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input id="description" name="description" type="text" class="form-control"
+               placeholder="Descripcion de la tienda" [(ngModel)]="store.description"
+               #description="ngModel" [ngClass]="{ 'is-invalid': f.submitted && description.invalid }" required>
+        <div *ngIf="f.submitted && description.invalid" class="invalid-feedback">
+          <div *ngIf="description?.errors.required">Descripcion es requerido</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="logo">Logo</label>
+        <input id="logo" name="logo" type="text" class="form-control" placeholder="Logo de la tienda"
+               [(ngModel)]="store.logo"
+               #logo="ngModel" [ngClass]="{ 'is-invalid': f.submitted && logo.invalid }" required>
+        <div *ngIf="f.submitted && logo.invalid" class="invalid-feedback">
+          <div *ngIf="logo?.errors.required">El logo es requerido</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="banner">Banner</label>
+        <input id="banner" name="banner" type="text" class="form-control" placeholder="Banner de la tienda"
+               [(ngModel)]="store.banner"
+               #banner="ngModel" [ngClass]="{ 'is-invalid': f.submitted && banner.invalid }" required>
+        <div *ngIf="f.submitted && banner.invalid" class="invalid-feedback">
+          <div *ngIf="banner?.errors.required">El banner es requerido</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="address">Direccion</label>
+        <input id="address" name="address" type="text" class="form-control" placeholder="Direccion de la tienda"
+               [(ngModel)]="store.address"
+               #address="ngModel" [ngClass]="{ 'is-invalid': f.submitted && address.invalid }" required>
+        <div *ngIf="f.submitted && address.invalid" class="invalid-feedback">
+          <div *ngIf="address?.errors.required">Direccion es requerido</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="price">Precio de envío</label>
+        <input id="price" name="price" type="text" class="form-control" placeholder="Precio de envio"
+               [(ngModel)]="store.price" #price="ngModel" [ngClass]="{ 'is-invalid': f.submitted && price.invalid }"
+               required>
+        <div *ngIf="f.submitted && price.invalid" class="invalid-feedback">
+          <div *ngIf="price?.errors.required">Precio es requerido</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="category">Categoria</label>
+        <select id="category" name="category" type="text" class="form-control" placeholder="Categoria"
+                [(ngModel)]="store.category.id" #category="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && category.invalid }" required>
+          <option [value]="item.id" *ngFor="let item of categories">{{item.name}}</option>
+        </select>
+        <div *ngIf="f.submitted && category.invalid" class="invalid-feedback">
+          <div *ngIf="category?.errors.required">Categoria es requerida</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.hide()">Cerrar</button>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #confModal>
+  <div class="modal-body text-center">
+    <p>Esta seguro de eliminar la tienda {{ store.name }}</p>
+    <button type="button" class="btn btn-outline-danger mr-2" (click)="delete()">Eliminar</button>
+    <button type="button" class="btn btn-primary" (click)="modal.hide()">Cancelar</button>
+  </div>
+</ng-template>

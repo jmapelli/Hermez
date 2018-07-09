@@ -1,0 +1,15 @@
+<div id="content-signin">
+  <form class="form-signin" style="text-align: center" (submit)="signIn()">
+    <h1 class="h3 mb-3 font-weight-normal">Inicie sesión</h1>
+    <input type="email" id="username" name="email" class="form-control"
+           placeholder="Correo electrónico" required="" autofocus="" [(ngModel)]="request.email">
+    <input type="password" id="password" name="password" class="form-control"
+           placeholder="Contraseña" required="" [(ngModel)]="request.password">
+    <div *ngIf="error" class="alert alert-danger" role="alert">
+      Usuario o contraseña incorrecto.
+    </div>
+    <button class="btn btn-primary btn-block" type="submit">Ingresar</button>
+    <button class="btn btn-block btn-outline-primary" type="button" (click)="signUp()">Registrate</button>
+  </form>
+</div>
+

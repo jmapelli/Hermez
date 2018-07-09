@@ -1,0 +1,117 @@
+<app-header-customer></app-header-customer>
+
+<div class="banner" [ngStyle]="{'background-image': 'url('+product.store.banner+')'}">
+  <img src="{{product.store.logo}}">
+</div>
+
+<main role="main">
+  <div class="container" style="margin-bottom: 80px;">
+    <h5>Detalle de pedido</h5>
+    <hr>
+
+    <form name="form" (submit)="f.form.valid && submit(confModal)" #f="ngForm" novalidate>
+      <div class="card mb-2">
+        <div class="card-body row">
+          <div class="image col-3">
+            <img src="{{product.image}}">
+          </div>
+          <div class="content col-9">
+            <span class="font-weight-bold">{{product.name}}</span><br>
+            <small class="font-italic">{{product.description}}</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="quantity" class="col-6 col-form-label">Cantidad</label>
+        <div class="col-6">
+          <input id="quantity" name="quantity" type="number" class="form-control"
+                 [(ngModel)]="purchase.quantity" (change)="onChangeQuantity()">
+        </div>
+      </div>
+
+      <!--<div class="form-group row">-->
+      <!--<label for="price_unit" class="col-6 col-form-label">Precio unit.</label>-->
+      <!--<div class="col-6 input-group">-->
+      <!--<div class="input-group-prepend">-->
+      <!--<div class="input-group-text">s/.</div>-->
+      <!--</div>-->
+      <!--<input id="price_unit" name="price_unit" type="text" class="form-control"-->
+      <!--[ngModel]="product.price | number:'1.2'" readonly>-->
+      <!--</div>-->
+      <!--</div>-->
+
+      <div class="form-group">
+        <label for="comment">Comentarios</label>
+        <textarea id="comment" name="comment" class="form-control" rows="2" [(ngModel)]="purchase.comment"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="address">Dirección de envío</label>
+        <input id="address" name="address" type="text" class="form-control" placeholder="Dirección de envío"
+               [(ngModel)]="purchase.addressArrival" style="text-align: left" #address="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && address.invalid }" required>
+        <div *ngIf="f.submitted && address.invalid" class="invalid-feedback">
+          <div *ngIf="address?.errors.required">Dirección de envío es requerido</div>
+        </div>
+      </div>
+
+      <br>
+      <h5>Detalle de pago</h5>
+      <hr>
+
+      <div class="form-group">
+        <label for="card">Tarjeta de crédito/débito</label>
+        <select id="card" name="card" [(ngModel)]="purchase.card" class="form-control">
+          <option [value]="item.number" *ngFor="let item of cards">{{item.number}}</option>
+        </select>
+      </div>
+
+      <br>
+      <h5>Total</h5>
+      <hr>
+      <div class="form-group row">
+        <label for="subtotal" class="col-6 col-form-label">Subtotal</label>
+        <div class="col-6 input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">s/.</div>
+          </div>
+          <input id="subtotal" name="subtotal" type="text" class="form-control"
+                 [ngModel]="purchase.subtotal | number:'1.2'" readonly>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="price" class="col-6 col-form-label">Precio envío</label>
+        <div class="col-6 input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">s/.</div>
+          </div>
+          <input id="price" name="price" type="text" class="form-control"
+                 [ngModel]="product.store.price | number:'1.2'" readonly>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="total" class="col-6 col-form-label">Total</label>
+        <div class="col-6 input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">s/.</div>
+          </div>
+          <input id="total" name="total" type="text" class="form-control"
+                 [ngModel]="purchase.total | number:'1.2'" readonly>
+        </div>
+      </div>
+      <hr>
+      <button type="submit" class="btn btn-primary col-12">Pedir y pagar</button>
+    </form>
+  </div>
+</main>
+<app-footer-customer></app-footer-customer>
+
+<ng-template #confModal>
+  <div class="modal-body text-center">
+    <p>Pedido realizado!</p>
+    <button type="button" class="btn btn-primary" (click)="modal.hide()">Aceptar</button>
+  </div>
+</ng-template>
